@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:personal_activity_app/screen/homescreen_view.dart';
 import '/data/activity_data.dart';
 import '/provider/activity_notifier.dart';
 import '/widget/custom_input.dart';
 import 'package:provider/provider.dart';
-import 'activity_list_view.dart';
 
 class InputActivity extends StatefulWidget {
 
@@ -165,9 +163,7 @@ class _InputActivityState extends State<InputActivity> {
                             );
                           }
 
-                        Navigator.pushAndRemoveUntil(
-                            context, MaterialPageRoute(builder: (context) =>
-                            HomeScreen()), (Route<dynamic> route) => false);
+                        Navigator.pop(context);
                       },
                       child: Text(title)
                   ),
