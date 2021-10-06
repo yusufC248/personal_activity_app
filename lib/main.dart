@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider( //UNTUK Provider, ini saya ikutin kak daffa
+    return MultiProvider( 
       providers: <SingleChildWidget>[
         ChangeNotifierProvider(
           //ActivityNotivier buat ngatur fungsi fungsi seperti add, edit, delete
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomeScreen(), //ini halaman dashboard
+        home: HomeScreen(),
       ),
     );
   }
