@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-// bagian ini adalah custom widget input yg bisa disesuaikan
-//Bagian ini bisa di ubah desainnya
-//kalo ada widget yg mau ditambahin kayak padding atau yg lain, boleh
-
-
 class CustomInput extends StatelessWidget {
   final String label; // inisialisasi label
   final TextEditingController controller; // inisialisasi controller
