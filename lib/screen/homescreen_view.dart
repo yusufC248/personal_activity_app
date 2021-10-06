@@ -1,28 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:personal_activity_app/provider/activity_notifier.dart';
+import 'package:personal_activity_app/screen/activity_list_view.dart';
 import 'package:provider/provider.dart';
-
-import 'activity_list_view.dart';
+import 'dashboard.dart';
 
 class HomeScreen extends StatelessWidget {
-
-
-  // halaman dashboard ini boleh diubah desainnya, jadi ini yg tampilan pertama kali muncul
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: OutlinedButton(
-          onPressed: (){
-            //bagian ini tombol buat pindah ke ListView, ini jangan dihapus
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return ActivityScreen();
-            }));
-          },
-          child: Text("Ini Ceritanya Dashboard"),
-        ),
+      backgroundColor: Colors.white,
+      appBar: _buildAppBar(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Dashboard(),
+          Container(
+            padding: EdgeInsets.all(15),
+            child: Text(
+              'AktifitasKu',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: ActivityScreen(),
+          ),
+        ],
       ),
+    );
+  }
+
+  // membuat Appbar aplikasi
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 2,
+      title: Row(
+        children: [
+          SizedBox(
+            height: 45,
+            width: 45,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network('https://i.pinimg.com/564x/15/a4/5e/15a45e1342ac7968dd824036a2576132.jpg'),
+            ),
+          ),
+          const SizedBox(width: 10,),
+          const Text('Hi, Lisa!',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 26,
+            fontWeight: FontWeight.bold
+          ),
+          ),
+        ],
+      ),
+      actions: const [
+        Icon(Icons.more_vert,
+        color: Colors.black,
+        size: 40,
+        )
+      ],
     );
   }
 }
