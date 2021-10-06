@@ -2,6 +2,10 @@
 
 A new Flutter application.
 
+## Nama Kelompok
+1. Muhammad Yusuf
+2. Dimas Maulana
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
