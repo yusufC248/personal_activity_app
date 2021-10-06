@@ -165,9 +165,9 @@ class _InputActivityState extends State<InputActivity> {
                             );
                           }
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return ActivityScreen();
-                        }));
+                        Navigator.pushAndRemoveUntil(
+                            context, MaterialPageRoute(builder: (context) =>
+                            HomeScreen()), (Route<dynamic> route) => false);
                       },
                       child: Text(title)
                   ),

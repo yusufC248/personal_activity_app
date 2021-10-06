@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_activity_app/screen/activity_list_view.dart';
-import 'package:provider/provider.dart';
+import '/screen/activity_list_view.dart';
 import 'dashboard.dart';
 
 class HomeScreen extends StatelessWidget {
