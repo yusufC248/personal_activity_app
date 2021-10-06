@@ -11,6 +11,3 @@ class Activity {
       this.time
       );
 }
-
-// ini bagian model ada data apa aja
-// kalo mau ditambahin boleh, nanti bisa penyesuaian
