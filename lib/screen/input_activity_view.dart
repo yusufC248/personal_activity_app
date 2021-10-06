@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_activity_app/screen/homescreen_view.dart';
 import '/data/activity_data.dart';
 import '/provider/activity_notifier.dart';
 import '/widget/custom_input.dart';
@@ -7,7 +8,7 @@ import 'activity_list_view.dart';
 
 class InputActivity extends StatefulWidget {
 
-  final Activity? activity; // inisalisasi model Activity. untuk melakukan edit data, diberika ? agar bisa null
+  final Activity? activity; // inisalisasi model Activity. untuk melakukan edit data, diberikan ? agar bisa null
 
   const InputActivity({Key? key, this.activity}) : super(key: key);
 
@@ -42,9 +43,6 @@ class _InputActivityState extends State<InputActivity> {
       _namecontroller.text = widget.activity!.name;
       _desccontroller.text = widget.activity!.descActivity;
 
-      //kak dimas bisa bantu
-      //mengambil data dari widget.activy.date lalu menampilkannya pada bagian tanggal
-      // mengambil data dari widget.activity.time lalu menampilkannya pada bagian waktu
       title = "EDIT";
     }else{
       title = "SIMPAN";
@@ -82,13 +80,14 @@ class _InputActivityState extends State<InputActivity> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'Selected time: ${_timeDefault.format(context)}',
-        ),
         SizedBox(height: 8),
         ElevatedButton(
+          style: ButtonStyle(
+            shadowColor: MaterialStateProperty.all(Colors.yellow),
+            backgroundColor: MaterialStateProperty.all(Colors.grey.shade800)
+          ),
           onPressed: _selectTime,
-          child: Text('SELECT TIME'),
+          child: Text('PILIH JAM'),
         ),
       ],
     );
@@ -98,87 +97,85 @@ class _InputActivityState extends State<InputActivity> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          '$_dateDefault',
-        ),
         SizedBox(height: 8),
         ElevatedButton(
+            style: ButtonStyle(
+            shadowColor: MaterialStateProperty.all(Colors.yellow),
+            backgroundColor: MaterialStateProperty.all(Colors.grey.shade800)
+            ),
           onPressed: _selectDate,
-          child: Text('SELECT DATE'),
+          child: Text('PILIH TANGGAL'),
         ),
       ],
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     ActivityNotifier activityNotifier = Provider.of<ActivityNotifier>(context);
-
-    //kak dimas bisa bantu ubah tampilan widget agar lebih rapih dan tidak telalu banyak baris
-
     return Scaffold(
       body:SafeArea(
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 16),
-                CustomInput(
-                    label: 'Name of Activity',
-
-                    controller: _namecontroller),
-                SizedBox(height: 16),
-                CustomInput(
-                    label: 'Activity Description',
-                    controller: _desccontroller),
-                SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _buildTimePicker(),
-                    _buildDatePicker(),
-                  ],
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                    onPressed: (){
-                      if(!_formKey.currentState!.validate()){
-                        return;
-                      }
-
-
-                      if(widget.activity != null){
-                        activityNotifier.editActivity(
-                            widget.activity!,
-                            _namecontroller.text,
-                            _desccontroller.text,
-                            _dateDefault.toString(),
-                            _timeDefault.format(context));
-                      }else{
-                        activityNotifier.addActivity(
-                            Activity(
-                                _namecontroller.text,
-                                _desccontroller.text,
-                                _dateDefault.toString(),
-                                _timeDefault.format(context)
-                             )
-                          );
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.run_circle_outlined),
+                  SizedBox(height: 16),
+                  CustomInput(
+                      label: 'Jenis Aktifitas',
+                      
+                      controller: _namecontroller),
+                  Icon(Icons.note_alt),    
+                  SizedBox(height: 16),
+                  CustomInput(
+                      label: 'Deskripsi aktifitas',
+                      controller: _desccontroller),
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _buildTimePicker(),
+                      _buildDatePicker(),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                      onPressed: (){
+                        if(!_formKey.currentState!.validate()){
+                          return;
                         }
 
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return ActivityScreen();
-                      }));
-                },
-                    child: Text(title)
-                ),
-              ],
-            ),
+                        if(widget.activity != null){
+                          activityNotifier.editActivity(
+                              widget.activity!,
+                              _namecontroller.text,
+                              _desccontroller.text,
+                              _dateDefault.toString(),
+                              _timeDefault.format(context));
+                        }else{
+                          activityNotifier.addActivity(
+                              Activity(
+                                  _namecontroller.text,
+                                  _desccontroller.text,
+                                  _dateDefault.toString(),
+                                  _timeDefault.format(context)
+                               )
+                            );
+                          }
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return ActivityScreen();
+                        }));
+                      },
+                      child: Text(title)
+                  ),
+                ],
+              ),
           ),
         ),
-      )
+      ),
     );
   }
 }
